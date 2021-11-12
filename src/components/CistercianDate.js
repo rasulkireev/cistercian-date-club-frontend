@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Web3 from 'web3';
+// import Web3 from 'web3';
 import {ethers} from 'ethers'
 import {cistercianDateNftContractABI} from '../config'
 
@@ -30,7 +30,7 @@ function CistercianDate(props) {
     );
   }
   return(
-    <div className="border border-solid border-red-500">
+    <div className="border border-red-500 border-solid">
       <p>Token ID: {props.tokenID}</p>
     </div>
   )

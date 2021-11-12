@@ -1,5 +1,4 @@
 import React from 'react'
-import CistercianDates from './CistercianDates'
 
 function WalletCardEthers(props) {
 
