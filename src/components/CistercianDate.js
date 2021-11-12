@@ -35,6 +35,9 @@ function CistercianDate(props) {
       </article>
     )
   }
+  else {
+    return ("Loading...")
+  }
 }
 
 export default CistercianDate;
