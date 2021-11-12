@@ -6,6 +6,7 @@ import './App.css';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
 import CistercianDates from './components/CistercianDates';
+import Home from './components/Home';
 
 function App() {
 
@@ -37,8 +38,6 @@ function App() {
 		}
   }
 
-  console.log(process.env.REACT_APP_CURRENT_NETWORK)
-
   if (!defaultAccount) {
     return (
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -47,12 +46,12 @@ function App() {
             connButtonText={connButtonText}
             defaultAccount={defaultAccount}
         />
+        <Home />
       </div>
     );
   }
 
   if (defaultAccount && currentEthNetwork !== process.env.REACT_APP_CURRENT_NETWORK) {
-
     return (
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <Header
@@ -72,7 +71,6 @@ function App() {
 
 
   if (defaultAccount && currentEthNetwork === process.env.REACT_APP_CURRENT_NETWORK) {
-
     return (
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <Header
