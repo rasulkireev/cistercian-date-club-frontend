@@ -19,12 +19,12 @@ function CistercianDates(props) {
       })
       .then((data) => {
         const resultArray = data.result
-        const cistercianDataTokenIDsArray = resultArray.map(function(datum) {
-          if(datum.tokenName === "Cistercian Date") {
-            return Number(datum.tokenID);
-          }
-          return []
-        })
+        const reducedResultsArray = resultArray.filter(data =>
+          (data.tokenName === "Cistercian Date")
+        )
+        const cistercianDataTokenIDsArray = reducedResultsArray.map(item =>
+          {return item['tokenID']}
+        )
         setTokenIDs(cistercianDataTokenIDsArray)
       })
       .catch((error) => {
