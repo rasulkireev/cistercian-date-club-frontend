@@ -8,7 +8,6 @@ function CistercianDates(props) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log(props.defaultAccount)
     const url = `https://${process.env.REACT_APP_POLYGONSCAN_API_URL}/api?module=account&action=tokennfttx&address=${props.defaultAccount}&startblock=0&endblock=999999999&sort=asc&apikey=${process.env.REACT_APP_POLYGONSCAN_API_KEY}`
     console.log(url)
     fetch(url)
@@ -45,7 +44,7 @@ function CistercianDates(props) {
   }
   else if (tokenIDs.length > 0) {
     return (
-      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 md:grid-cols-2">
           {tokenIDs.map(
               tokenID => {
                 return (

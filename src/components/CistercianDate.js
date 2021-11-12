@@ -19,8 +19,7 @@ function CistercianDate(props) {
           setMetadata(metadata)
         })
     })
-    const openseaUrl = `https://${process.env.REACT_APP_OPENSEA_URL}/assets/mumbai/${process.env.REACT_APP_ERC721_CONTRACT}/${props.tokenID}`
-
+    const openseaUrl = `https://${process.env.REACT_APP_OPENSEA_URL}/${process.env.REACT_APP_ERC721_CONTRACT}/${props.tokenID}`
 
 
   if(metadata) {
@@ -36,7 +35,6 @@ function CistercianDate(props) {
       </article>
     )
   }
-  return ("Loading...")
 }
 
 export default CistercianDate;
