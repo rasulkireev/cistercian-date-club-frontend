@@ -11,28 +11,33 @@ function App() {
 
 	const [defaultAccount, setDefaultAccount] = useState(null);
 	const [connButtonText, setConnButtonText] = useState('Connect Wallet');
-	const [web3Provider, setWeb3Provider] = useState(null);
+  const [currentEthNetwork, setCurrentEthNetwork] = useState(null);
 
   const connectWalletHandler = () => {
 		if (window.ethereum && defaultAccount == null) {
 			// set ethers provider
-			setWeb3Provider(new ethers.providers.Web3Provider(window.ethereum));
-      console.log(web3Provider)
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      provider.getNetwork()
+        .then(result => {
+          setCurrentEthNetwork(result.name)
+        })
 
 			// connect to metamask
 			window.ethereum.request({ method: 'eth_requestAccounts'})
 			.then(result => {
-				setConnButtonText('Wallet Connected');
+        setConnButtonText('Wallet Connected');
 				setDefaultAccount(result[0]);
 			})
 			.catch(error => {
-				alert(error.message);
+        alert(error.message);
 			});
 
 		} else if (!window.ethereum){
-			alert('Need to install MetaMask');
+      alert('Need to install MetaMask');
 		}
-	}
+  }
+
+  console.log(process.env.REACT_APP_CURRENT_NETWORK)
 
   if (!defaultAccount) {
     return (
@@ -46,7 +51,28 @@ function App() {
     );
   }
 
-  if (defaultAccount) {
+  if (defaultAccount && currentEthNetwork !== process.env.REACT_APP_CURRENT_NETWORK) {
+
+    return (
+      <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <Header
+            connectWalletHandler={connectWalletHandler}
+            connButtonText={connButtonText}
+            defaultAccount={defaultAccount}
+        />
+
+        <div className="screen">
+          <p>
+            Please swtich your wallet to the Polygon Network and reload the page. You current network is <b>{currentEthNetwork}</b>.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+
+  if (defaultAccount && currentEthNetwork === process.env.REACT_APP_CURRENT_NETWORK) {
+
     return (
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <Header
@@ -60,6 +86,7 @@ function App() {
             <Route path="/" element={<CistercianDates defaultAccount={defaultAccount} />}/>
             <Route path="*" element={<NotFound />}/>
           </Routes>
+
         </div>
       </div>
     );
