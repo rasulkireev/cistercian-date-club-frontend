@@ -2,7 +2,7 @@ import WalletCardEthers from './WalletCardEthers';
 
 export default function Header(props) {
   return (
-      <div className="flex items-center justify-between px-4 py-6 sm:px-6">
+      <div className="flex items-center justify-between py-6">
         <div>
           <a href="/" className="flex">
             <span className="sr-only">Workflow</span>

@@ -9,7 +9,7 @@ function CistercianDates(props) {
 
   useEffect(() => {
     console.log(props.defaultAccount)
-    const url = `https://api-testnet.polygonscan.com/api?module=account&action=tokennfttx&address=${props.defaultAccount}&startblock=0&endblock=999999999&sort=asc&apikey=PNT7KZVXFHKTH6UB4H3C7ABDQ841CN3ITY`
+    const url = `https://${process.env.REACT_APP_POLYGONSCAN_API_URL}/api?module=account&action=tokennfttx&address=${props.defaultAccount}&startblock=0&endblock=999999999&sort=asc&apikey=${process.env.REACT_APP_POLYGONSCAN_API_KEY}`
     console.log(url)
     fetch(url)
       .then((response) => {
