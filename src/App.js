@@ -5,8 +5,7 @@ import {ethers} from 'ethers'
 import './App.css';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
-// import CistercianDates from './components/CistercianDates';
-import Home from './components/Home';
+import CistercianDates from './components/CistercianDates';
 
 function App() {
 
@@ -18,7 +17,6 @@ function App() {
 		if (window.ethereum && defaultAccount == null) {
 			// set ethers provider
 			setWeb3Provider(new ethers.providers.Web3Provider(window.ethereum));
-      console.log(web3Provider)
 
 			// connect to metamask
 			window.ethereum.request({ method: 'eth_requestAccounts'})
@@ -35,23 +33,36 @@ function App() {
 		}
 	}
 
-
-  return (
-    <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <Header
-          connectWalletHandler={connectWalletHandler}
-          connButtonText={connButtonText}
-          defaultAccount={defaultAccount}
-      />
-
-      <div className="screen">
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="*" element={<NotFound />}/>
-        </Routes>
+  if (!defaultAccount) {
+    return (
+      <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <Header
+            connectWalletHandler={connectWalletHandler}
+            connButtonText={connButtonText}
+            defaultAccount={defaultAccount}
+        />
       </div>
-    </div>
-  );
+    );
+  }
+
+  if (defaultAccount) {
+    return (
+      <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <Header
+            connectWalletHandler={connectWalletHandler}
+            connButtonText={connButtonText}
+            defaultAccount={defaultAccount}
+        />
+
+        <div className="screen">
+          <Routes>
+            <Route path="/" element={<CistercianDates defaultAccount={defaultAccount} />}/>
+            <Route path="*" element={<NotFound />}/>
+          </Routes>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;

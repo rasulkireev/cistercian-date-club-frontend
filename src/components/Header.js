@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import WalletCardEthers from './WalletCardEthers';
 
 export default function Header(props) {
@@ -15,9 +14,6 @@ export default function Header(props) {
           </a>
         </div>
           <div className="flex items-center">
-
-              <Link to="/">Home</Link>
-
               <WalletCardEthers
                   connectWalletHandler={props.connectWalletHandler}
                   connButtonText={props.connButtonText}

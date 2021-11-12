@@ -20,20 +20,19 @@ function CistercianDate(props) {
         })
     })
 
-
   if(metadata) {
-      return (
-        <div>
-          <img src={metadata.image} alt={metadata.name}/>
-          <p>{metadata.name}</p>
+    return (
+      <article class="flex flex-col justify-start bg-white border border-solid rounded shadow">
+        <div class="border-b border-gray-300 border-solid rounded-t-lg">
+          <img class="object-cover object-left-top w-full h-auto border-0 rounded-t" src={metadata.image} alt={metadata.name} />
         </div>
-    );
+        <div class="flex-auto h-full p-4 border-b border-gray-300 border-solid">
+          <h3>{metadata.name}</h3>
+        </div>
+      </article>
+    )
   }
-  return(
-    <div className="border border-red-500 border-solid">
-      <p>Token ID: {props.tokenID}</p>
-    </div>
-  )
+  return ("Loading...")
 }
 
 export default CistercianDate;

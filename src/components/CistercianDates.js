@@ -8,7 +8,10 @@ function CistercianDates(props) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://api-testnet.polygonscan.com/api?module=account&action=tokennfttx&address=${props.walletAddress}&startblock=0&endblock=999999999&sort=asc&apikey=PNT7KZVXFHKTH6UB4H3C7ABDQ841CN3ITY`)
+    console.log(props.defaultAccount)
+    const url = `https://api-testnet.polygonscan.com/api?module=account&action=tokennfttx&address=${props.defaultAccount}&startblock=0&endblock=999999999&sort=asc&apikey=PNT7KZVXFHKTH6UB4H3C7ABDQ841CN3ITY`
+    console.log(url)
+    fetch(url)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -32,7 +35,7 @@ function CistercianDates(props) {
       .finally(() => {
         setLoading(false);
       });
-  }, [props.walletAddress]);
+  }, [props.defaultAccount]);
 
   if (loading) return "Loading...";
   if (error) return "Error!";
@@ -42,12 +45,11 @@ function CistercianDates(props) {
   }
   else if (tokenIDs.length > 0) {
     return (
-      <div className="border border-solid border-green-500">
-        <p>Array Length: {tokenIDs.length}</p>
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 md:grid-cols-2">
           {tokenIDs.map(
               tokenID => {
                 return (
-                <CistercianDate key={tokenID} tokenID={tokenID} walletAddress={props.walletAddress} />
+                  <CistercianDate key={tokenID} tokenID={tokenID} />
                 )
               }
           )}
