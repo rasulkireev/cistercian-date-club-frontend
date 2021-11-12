@@ -17,6 +17,7 @@ function App() {
 		if (window.ethereum && defaultAccount == null) {
 			// set ethers provider
 			setWeb3Provider(new ethers.providers.Web3Provider(window.ethereum));
+      console.log(web3Provider)
 
 			// connect to metamask
 			window.ethereum.request({ method: 'eth_requestAccounts'})
