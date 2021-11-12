@@ -36,7 +36,7 @@ function CistercianDate(props) {
     )
   }
   else {
-    return ("Loading...")
+    return ("")
   }
 }
 
