@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Route, Routes } from 'react-router-dom';
 import {ethers} from 'ethers'
 
@@ -6,11 +6,14 @@ import './App.css';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
 import CistercianDates from './components/CistercianDates';
+import CistercianDateProfile from './components/CistercianDateProfile';
 import Home from './components/Home';
+import MintNFT from './components/MintNFT';
 
 function App() {
 
 	const [defaultAccount, setDefaultAccount] = useState(null);
+  const [tokenIDs, setTokenIDs] = useState([]);
 	const [connButtonText, setConnButtonText] = useState('Connect Wallet');
   const [currentEthNetwork, setCurrentEthNetwork] = useState(null);
 
@@ -37,6 +40,29 @@ function App() {
       alert('Need to install MetaMask');
 		}
   }
+
+  useEffect(() => {
+    fetch(`https://${process.env.REACT_APP_POLYGONSCAN_API_URL}/api?module=account&action=tokennfttx&address=${defaultAccount}&startblock=0&endblock=999999999&sort=asc&apikey=${process.env.REACT_APP_POLYGONSCAN_API_KEY}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw response;
+      })
+      .then((data) => {
+        const resultArray = data.result
+        const reducedResultsArray = resultArray.filter(data =>
+          (data.tokenName === "Cistercian Date")
+        )
+        const cistercianDataTokenIDsArray = reducedResultsArray.map(item =>
+          {return item['tokenID']}
+        )
+        setTokenIDs(cistercianDataTokenIDsArray)
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      })
+  }, [defaultAccount]);
 
   if (!defaultAccount) {
     return (
@@ -81,7 +107,9 @@ function App() {
 
         <div className="screen">
           <Routes>
-            <Route path="/" element={<CistercianDates defaultAccount={defaultAccount} />}/>
+            <Route path="/" element={<CistercianDates defaultAccount={defaultAccount} tokenIDs={tokenIDs} />}/>
+            <Route path="mint" element={<MintNFT />}/>
+            <Route path=":date" element={<CistercianDateProfile />} />
             <Route path="*" element={<NotFound />}/>
           </Routes>
 
